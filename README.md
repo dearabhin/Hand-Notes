@@ -41,7 +41,7 @@ For Software:
 # Installation
 ```bash
 # Clone this repository
-git clone [https://github.com/dearabhin/Hand-Notes](https://github.com/dearabhin/Hand-Notes)
+git clone https://github.com/dearabhin/Hand-Notes
 
 # Navigate to the project directory
 cd Hand-Notes
