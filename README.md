@@ -69,9 +69,9 @@ Then navigate to `http://localhost:8000` in your browser.
 
 # Diagrams
 
-![Workflow](./Workflow.png)
+![Workflow](./Workflow1.png)
 
-### Project Demo
+### Project Demos
 # Video
 
 [![Watch the video on YouTube](https://img.youtube.com/vi/czOtJNIJyIM/0.jpg)](https://youtu.be/czOtJNIJyIM)
