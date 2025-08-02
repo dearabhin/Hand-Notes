@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hand Gesture Arpeggiator - Workflow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for the flowchart */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* gray-100 */
+        }
+
+        .page-container {
+            width: 100%;
+            margin: auto;
+        }
+
+        .flowchart-container {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 4rem 2rem;
+            position: relative;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        /* Responsive grid layout */
+        @media (min-width: 768px) {
+            .flowchart-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .node {
+            background-color: white;
+            border: 1px solid #e5e7eb; /* gray-200 */
+            border-radius: 0.75rem; /* rounded-xl */
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        
+        .node:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        .node-title {
+            font-weight: 600; /* semibold */
+            font-size: 1.125rem; /* text-lg */
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .node-description {
+            font-size: 0.875rem; /* text-sm */
+            color: #4b5563; /* gray-600 */
+            flex-grow: 1;
+        }
+        
+        .node-tech {
+            font-size: 0.75rem; /* text-xs */
+            font-weight: 500; /* medium */
+            color: #1d4ed8; /* blue-700 */
+            background-color: #dbeafe; /* blue-100 */
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px; /* rounded-full */
+            margin-top: 1rem;
+            align-self: flex-start;
+        }
+
+        /* Specific node placements */
+        #node-webcam { grid-column: 1 / -1; justify-self: center; }
+        @media (min-width: 768px) {
+            #node-webcam { grid-column: 2 / 3; }
+        }
+        #node-mediapipe { grid-column: 1 / -1; justify-self: center; }
+        @media (min-width: 768px) {
+            #node-mediapipe { grid-column: 2 / 3; }
+        }
+        #node-controller { grid-column: 1 / -1; }
+        @media (min-width: 768px) {
+            #node-controller { grid-column: 1 / -1; }
+        }
+        #node-music { grid-column: 1 / -1; }
+        @media (min-width: 768px) {
+            #node-music { grid-column: 1 / 2; }
+        }
+        #node-drums { grid-column: 1 / -1; }
+        @media (min-width: 768px) {
+            #node-drums { grid-column: 2 / 3; }
+        }
+        #node-visuals { grid-column: 1 / -1; }
+        @media (min-width: 768px) {
+            #node-visuals { grid-column: 3 / 4; }
+        }
+        #node-output { grid-column: 1 / -1; justify-self: center; }
+         @media (min-width: 768px) {
+            #node-output { grid-column: 2 / 3; }
+        }
+
+        /* SVG for connectors */
+        #connector-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .connector-line {
+            stroke: #9ca3af; /* gray-400 */
+            stroke-width: 2.5;
+            fill: none;
+            marker-end: url(#arrowhead);
+            stroke-dasharray: 6;
+            animation: dash 1s linear infinite;
+        }
+        
+        @keyframes dash {
+          to {
+            stroke-dashoffset: -20;
+          }
+        }
+
+        /* Print-specific styles for A4 paper */
+        @media print {
+            body, html {
+                margin: 0;
+                padding: 0;
+                background-color: #ffffff;
+            }
+
+            .no-print {
+                display: none;
+            }
+
+            .page-container {
+                width: 190mm; /* A4 width (210mm) - 20mm margins */
+                height: 277mm; /* A4 height (297mm) - 20mm margins */
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+                border: none;
+            }
+
+            .flowchart-container {
+                padding: 0;
+                gap: 1.5rem 1rem; /* Reduce gap for print */
+                transform: scale(0.85); /* Scale down to fit better */
+                transform-origin: top left;
+            }
+
+            .node {
+                box-shadow: none;
+                border: 1px solid #333333;
+                padding: 0.75rem;
+                page-break-inside: avoid;
+            }
+            
+            .node-title {
+                font-size: 11pt;
+            }
+            
+            .node-description {
+                font-size: 9pt;
+                color: #000000;
+            }
+            
+            .node-tech {
+                font-size: 8pt;
+                padding: 0.1rem 0.4rem;
+                background-color: #eeeeee;
+                color: #000000;
+                border: 1px solid #cccccc;
+            }
+
+            .connector-line {
+                stroke: #000000;
+                animation: none;
+                stroke-dasharray: none;
+            }
+            
+            #arrowhead path {
+                fill: #000000;
+            }
+
+            .print-caption {
+                font-size: 10pt;
+                color: #000000;
+                position: fixed;
+                bottom: 20px;
+                left: 20px;
+                right: 20px;
+            }
+        }
+
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="no-print text-center mb-8">
+        <button onclick="window.print()" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300">
+            🖨️ Print Flowchart
+        </button>
+    </div>
+
+    <div class="page-container">
+        <div class="text-center mb-12 no-print">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800">Project Workflow & Architecture</h1>
+            <p class="text-lg text-gray-600 mt-2">Hand Gesture Arpeggiator</p>
+        </div>
+
+        <div class="flowchart-container" id="flowchart">
+            <!-- SVG for drawing lines will be placed here by JS -->
+
+            <!-- Row 1: Input -->
+            <div id="node-webcam" class="node">
+                <h3 class="node-title">
+                    <span class="mr-2">📹</span> Webcam Input
+                </h3>
+                <p class="node-description">The user's webcam captures a live video stream. This raw video data is the primary input for the entire application.</p>
+                <span class="node-tech">Browser API: navigator.mediaDevices.getUserMedia</span>
+            </div>
+
+            <!-- Row 2: Processing -->
+            <div id="node-mediapipe" class="node">
+                <h3 class="node-title">
+                    <span class="mr-2">🖐️</span> Hand Tracking
+                </h3>
+                <p class="node-description">The video stream is processed in real-time by the MediaPipe Hand Landmarker model. It detects up to two hands and identifies 21 key landmarks (joints and fingertips) for each, outputting their normalized (x, y, z) coordinates.</p>
+                <span class="node-tech">Google MediaPipe</span>
+            </div>
+
+            <!-- Row 3: Main Controller -->
+            <div id="node-controller" class="node bg-blue-50 border-blue-200">
+                <h3 class="node-title text-blue-800">
+                    <span class="mr-2">🧠</span> Game Controller (game.js)
+                </h3>
+                <p class="node-description">This is the central hub of the application. It receives the landmark data from MediaPipe, interprets it as gestures (e.g., hand height, finger positions, fist), and orchestrates the audio and visual components based on this interpretation in its main animation loop.</p>
+                <span class="node-tech bg-blue-200 text-blue-800">Core Application Logic</span>
+            </div>
+
+            <!-- Row 4: Sub-systems -->
+            <div id="node-music" class="node">
+                <h3 class="node-title">
+                    <span class="mr-2">🎹</span> Music Manager
+                </h3>
+                <p class="node-description">Controls the melodic synthesizer. It receives commands from the Game Controller to start, stop, or update the arpeggio's root note (pitch) and volume based on the left hand's position and gestures.</p>
+                <span class="node-tech">Tone.js (PolySynth)</span>
+            </div>
+            
+            <div id="node-drums" class="node">
+                <h3 class="node-title">
+                    <span class="mr-2">🥁</span> Drum Manager
+                </h3>
+                <p class="node-description">Manages the rhythmic elements. It activates or deactivates drum sounds (kick, snare, etc.) in a 16-step sequence based on which fingers of the right hand are raised.</p>
+                <span class="node-tech">Tone.js (Players & Sequence)</span>
+            </div>
+
+            <div id="node-visuals" class="node">
+                <h3 class="node-title">
+                    <span class="mr-2">✨</span> Visuals Manager
+                </h3>
+                <p class="node-description">Renders all visual elements on the screen. This includes drawing the hand skeletons, the audio-reactive waveform (using an analyser node from Tone.js), and the pulsing beat indicators.</p>
+                <span class="node-tech">Three.js (WebGL)</span>
+            </div>
+            
+            <!-- Row 5: Output -->
+            <div id="node-output" class="node bg-green-50 border-green-200">
+                <h3 class="node-title text-green-800">
+                    <span class="mr-2">🔊</span> Final Output
+                </h3>
+                <p class="node-description">The audio generated by the Music and Drum managers is sent to the user's speakers, while the visuals rendered by the Visuals Manager are displayed on the screen, creating a cohesive audio-visual experience.</p>
+                <span class="node-tech bg-green-200 text-green-800">User Experience</span>
+            </div>
+        </div>
+        
+        <figure class="max-w-4xl mx-auto mt-12 text-center no-print">
+            <figcaption class="text-gray-700 italic">
+                <span class="font-semibold">Workflow Explanation:</span> The process begins with the <b class="text-gray-900">Webcam</b> capturing the user's hands. <b class="text-gray-900">MediaPipe</b> analyzes this feed to extract hand landmark data. This data is fed to the central <b class="text-gray-900">Game Controller</b>, which acts as the application's brain. The controller translates gestures into commands, directing the <b class="text-gray-900">Music and Drum Managers</b> to produce sound with Tone.js, and instructing the <b class="text-gray-900">Visuals Manager</b> to render corresponding graphics with Three.js. The final, synchronized audio and visuals are then presented to the user.
+            </figcaption>
+        </figure>
+        <div class="print-caption">
+            <b>Workflow:</b> Webcam -> MediaPipe -> Game Controller -> (Music, Drums, Visuals) -> Final Output
+        </div>
+    </div>
+
+    <script>
+        // This script draws the connecting lines between the flowchart nodes.
+        document.addEventListener('DOMContentLoaded', () => {
+            const flowchart = document.getElementById('flowchart');
+            
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.id = 'connector-svg';
+            flowchart.insertBefore(svg, flowchart.firstChild);
+            
+            svg.innerHTML = `
+                <defs>
+                    <marker id="arrowhead" viewBox="0 0 10 10" refX="8" refY="5"
+                        markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#9ca3af"></path>
+                    </marker>
+                </defs>
+            `;
+
+            const connections = [
+                { from: 'node-webcam', to: 'node-mediapipe', fromSide: 'bottom', toSide: 'top' },
+                { from: 'node-mediapipe', to: 'node-controller', fromSide: 'bottom', toSide: 'top' },
+                { from: 'node-controller', to: 'node-music', fromSide: 'bottom', toSide: 'top' },
+                { from: 'node-controller', to: 'node-drums', fromSide: 'bottom', toSide: 'top' },
+                { from: 'node-controller', to: 'node-visuals', fromSide: 'bottom', toSide: 'top' },
+                { from: 'node-music', to: 'node-output', fromSide: 'bottom', toSide: 'top' },
+                { from: 'node-drums', to: 'node-output', fromSide: 'bottom', toSide: 'top' },
+                { from: 'node-visuals', to: 'node-output', fromSide: 'bottom', toSide: 'top' }
+            ];
+
+            function drawConnectors() {
+                const existingLines = svg.querySelectorAll('.connector-line');
+                existingLines.forEach(line => line.remove());
+
+                connections.forEach(conn => {
+                    const fromElem = document.getElementById(conn.from);
+                    const toElem = document.getElementById(conn.to);
+                    if (!fromElem || !toElem) return;
+
+                    const fromRect = fromElem.getBoundingClientRect();
+                    const toRect = toElem.getBoundingClientRect();
+                    const containerRect = flowchart.getBoundingClientRect();
+
+                    const getCoords = (rect, side) => {
+                        const x = rect.left - containerRect.left + window.scrollX;
+                        const y = rect.top - containerRect.top + window.scrollY;
+                        switch(side) {
+                            case 'top': return { x: x + rect.width / 2, y: y };
+                            case 'bottom': return { x: x + rect.width / 2, y: y + rect.height };
+                            case 'left': return { x: x, y: y + rect.height / 2 };
+                            case 'right': return { x: x + rect.width, y: y + rect.height / 2 };
+                        }
+                    };
+
+                    const p1 = getCoords(fromRect, conn.fromSide);
+                    const p2 = getCoords(toRect, conn.toSide);
+
+                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    line.setAttribute('class', 'connector-line');
+                    const c1x = p1.x;
+                    const c1y = p1.y + 50;
+                    const c2x = p2.x;
+                    const c2y = p2.y - 50;
+                    line.setAttribute('d', `M ${p1.x} ${p1.y} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${p2.x} ${p2.y}`);
+                    svg.appendChild(line);
+                });
+            }
+
+            drawConnectors();
+            window.addEventListener('resize', drawConnectors);
+        });
+    </script>
+</body>
+</html>
