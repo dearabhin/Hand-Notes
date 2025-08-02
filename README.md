@@ -50,10 +50,10 @@ cd Hand-Notes
 
 ```bash
 # Clone this repository
-git clone https://github.com/dearabhin
+git clone https://github.com/dearabhin/Hand-Notes
 
 # Navigate to the project directory
-cd reponame
+cd Hand-Notes
 
 # Serve with your preferred method (example using Python)
 python -m http.server
