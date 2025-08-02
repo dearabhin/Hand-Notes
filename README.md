@@ -2,6 +2,8 @@
 
 # Hand Notes 🎯
 
+https://dearabhin.github.io/Hand-Notes/
+
 ## Basic Details
 ### Team Name: Coconut 🥥
 
