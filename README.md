@@ -156,11 +156,7 @@ Then navigate to `http://localhost:8000` in your browser.
 
 Watch demo video on YouTube: https://youtu.be/czOtJNIJyIM
 
-<a href="https://www.youtube.com/watch?v=czOtJNIJyIM">
-  <img src="./thumbnail-play.jpg" alt="Watch the video"
-       style="border: 2px solid #ccc; border-radius: 10px; width: 480px;">
-</a>
-
+<video src="https://github.com/user-attachments/assets/c7d49ba3-a83b-482d-bad7-dad07b9a773b" controls></video>
 
 
 ## Team Contributions
