@@ -2,7 +2,10 @@
 
 # Hand Notes 🎯
 
-https://dearabhin.github.io/Hand-Notes/
+Website - https://dearabhin.github.io/Hand-Notes/ (Desktop/Mobile)
+
+![Demo GIF](./demo.gif)
+
 
 ## Basic Details
 ### Team Name: Coconut 🥥
@@ -62,6 +65,14 @@ python -m http.server
 ```
 
 Then navigate to `http://localhost:8000` in your browser.
+
+
+
+
+
+
+
+
 
 # Screenshots
 
