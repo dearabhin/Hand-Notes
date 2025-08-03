@@ -1,6 +1,6 @@
 <img width="3188" height="1202" alt="frame (3)" src="https://github.com/user-attachments/assets/517ad8e9-ad22-457d-9538-a9e62d137cd7" />
 
-# Hand Notes 🎯
+# 🎶🪇🥁 Hand Notes 🥁🪇🎶 - Play music instruments with your hands movements
 
 Website - https://dearabhin.github.io/Hand-Notes/ (Desktop/Mobile)
 
@@ -68,8 +68,7 @@ Then navigate to `http://localhost:8000` in your browser.
 
 # Screenshots
 
-![Screenshot 1](./screenshot2.png)
-![Screenshot 2](./screenshot1.png)
+![Screenshot 2](./screenshot2.png)
 ![Screenshot 3](./screenshot3.png)
 
 # Diagrams
@@ -79,9 +78,13 @@ Then navigate to `http://localhost:8000` in your browser.
 ### Project Demos
 # Video
 
-Watch demo video on YouTube:https://youtu.be/czOtJNIJyIM
+Watch demo video on YouTube: https://youtu.be/czOtJNIJyIM
 
-[![Watch the video on YouTube](https://img.youtube.com/vi/czOtJNIJyIM/0.jpg)](https://www.youtube.com/watch?v=czOtJNIJyIM)
+<a href="https://www.youtube.com/watch?v=czOtJNIJyIM">
+  <img src="./thumbnail-play.jpg" alt="Watch the video"
+       style="border: 2px solid #ccc; border-radius: 10px; width: 480px;">
+</a>
+
 
 
 ## Team Contributions
