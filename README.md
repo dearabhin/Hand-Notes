@@ -44,14 +44,6 @@ For Hardware:
 ### Implementation
 For Software:
 # Installation
-```bash
-# Clone this repository
-git clone https://github.com/dearabhin/Hand-Notes.git
-
-# Navigate to the project directory
-cd Hand-Notes
-
-# Run
 
 ```bash
 # Clone this repository
@@ -76,8 +68,8 @@ Then navigate to `http://localhost:8000` in your browser.
 
 # Screenshots
 
-![Screenshot 1](./screenshot1.png)
-![Screenshot 2](./screenshot2.png)
+![Screenshot 1](./screenshot2.png)
+![Screenshot 2](./screenshot1.png)
 ![Screenshot 3](./screenshot3.png)
 
 # Diagrams
@@ -87,11 +79,10 @@ Then navigate to `http://localhost:8000` in your browser.
 ### Project Demos
 # Video
 
-[![Watch the video on YouTube](https://img.youtube.com/vi/czOtJNIJyIM/0.jpg)](https://youtu.be/czOtJNIJyIM)
+Watch demo video on YouTube:https://youtu.be/czOtJNIJyIM
 
-or
+[![Watch the video on YouTube](https://img.youtube.com/vi/czOtJNIJyIM/0.jpg)](https://www.youtube.com/watch?v=czOtJNIJyIM)
 
-https://youtu.be/czOtJNIJyIM
 
 ## Team Contributions
 - Abhin Krishna - Model Engineering College: ML and Web Development
